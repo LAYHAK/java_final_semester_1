@@ -3,10 +3,11 @@ package luckydraw;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class LuckyDraw {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         // Create a list of customers
         ArrayList<Customer> customers = new ArrayList<>();
@@ -25,8 +26,38 @@ public class LuckyDraw {
 
         // Create a list to store the winners
         ArrayList<Customer> winners = new ArrayList<>();
+
+        System.out.println("========== Start Lucky Draw Customer ========");
+        Scanner scanner = new Scanner(System.in);
+
+        int i = 0;
+        int n = customers.size()-1;
+        do {
+            Random random = new Random();
+            int r = random.nextInt(n) + 1;
+            Customer c = customers.get(r);
+            System.out.println(c.getTel());
+            TimeUnit.SECONDS.sleep(1);
+            i++;
+            System.out.print("Do you want to continue? (y/n): ");
+            String a = scanner.nextLine();
+            if(!a.equalsIgnoreCase("y")) {
+                break;
+            }else{
+                winners.add(customers.get(r));
+                n--;
+            }
+        }while (i<customers.size());
+
+        System.out.println("========== End Lucky Draw Customer ========");
+        System.out.println("The winners of the lucky draw are:");
+        for (Customer winner : winners) {
+            System.out.println(winner.getNo() + "\t" + winner.getName() + "\t" + winner.getTel());
+        }
+
+
         //Create Random number from 1 to 10
-        Random random = new Random();
+       /* Random random = new Random();
         int randomNum = random.nextInt(10) + 1;
         // Select three random winners
         winners.add(customers.get(randomNum));
@@ -59,7 +90,7 @@ public class LuckyDraw {
         System.out.println("The winners of the lucky draw are:");
         for (Customer winner : winners) {
             System.out.println(winner.getNo() + "\t" + winner.getName() + "\t" + winner.getTel());
-        }
+        }*/
     }
 }
 

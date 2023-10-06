@@ -4,6 +4,7 @@ public class Customer {
     private int no;
     private String name;
     private String tel;
+    public Customer(){}
     public Customer(int no, String name, String tel) {
         this.no = no;
         this.name = name;
