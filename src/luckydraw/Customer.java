@@ -1,7 +1,6 @@
 package luckydraw;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Customer {
@@ -53,36 +52,41 @@ public class Customer {
         customers.add(new Customer(9, "Barry Allen", "6543210987"));
         customers.add(new Customer(10, "Victor Stone", "7654321098"));
     }
-    private static void addWinner(String a, Customer c, ArrayList<Customer> winners) throws InterruptedException {
-        if (a.equalsIgnoreCase("y")) {
+    protected static void addWinner(Customer c, ArrayList<Customer> winners, ArrayList<Customer> customers) throws InterruptedException
+    {
             TimeUnit.SECONDS.sleep(1);
+            System.out.print("The winner phone number is:");
             System.out.println(c.getTel());
             winners.add(c);
-        }
+            customers.remove(c);
     }
     protected static void printSentence(ArrayList<Customer> winners) {
-        if (winners.size() == 0) {
-            System.out.println("No winners");
-        }else if(winners.size() == 1){
-            System.out.println("The winner of the lucky draw is:");
-        }else{
-            System.out.println("The winners of the lucky draw are:");
-        }
-    }
-    protected static String getAnswer(int i, Scanner scanner, Customer c, ArrayList<Customer> winners) throws InterruptedException {
-        String a;
-        if (i == 0) {
-            System.out.print("Do you want start the Lucky Draw? (y/n): ");
-            a = scanner.nextLine();
-            addWinner(a, c, winners);
-        } else if (i < 5) {
-            System.out.print("Do you want continue the Lucky Draw? (y/n): ");
-            a = scanner.nextLine();
-            addWinner(a, c, winners);
+        if (!winners.isEmpty()) {
+            if(winners.size() == 1){
+                System.out.println("The winner of the lucky draw is:");
+            }else{
+                System.out.println("The winners of the lucky draw are:");
+            }
         } else {
-            a = "n";
+            System.out.println("No winners");
         }
-        return a;
     }
+
+    protected static void listOfChoices(){
+        System.out.println("""
+                Choose one of the following options:
+                1.Click 'S' to start
+                2.Click 'R' to reset
+                3.Click 'E' to end
+                """);
+    }
+    protected static void resetWinners(ArrayList<Customer> customers, ArrayList<Customer> winners) throws InterruptedException {
+        System.out.println("Resetting winners...");
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("Reset complete");
+        customers.addAll(winners);
+        winners.clear();
+    }
+
 }
 

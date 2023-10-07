@@ -1,6 +1,6 @@
 package luckydraw;
-
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,46 +8,57 @@ import static luckydraw.Customer.*;
 
 public class LuckyDraw {
     public static void main(String[] args) throws InterruptedException {
-
         // Create a list of customers
         ArrayList<Customer> customers = new ArrayList<>();
         listOfCustomers(customers);
         // Create a list to store the winners
-
-        System.out.println("========== Start Lucky Draw Customer ========");
         Scanner scanner = new Scanner(System.in);
         String a;
         int i = 0;
         int n = customers.size() - 1;
+        boolean run = true;
         ArrayList<Customer> winners = new ArrayList<>();
         do {
+            listOfChoices();
+            System.out.print("Enter your choice: ");
+            a= scanner.nextLine();
+            a=a.toLowerCase(Locale.ROOT);
             Random random = new Random();
             int r = random.nextInt(n) + 1;
             Customer c = customers.get(r);
-            a = getAnswer(i, scanner, c, winners);
-            i++;
-            customers.remove(c);
-            n--;
-            if (a.equalsIgnoreCase("y") && i < 5) {
-                System.out.print("Do you want reset the list of winners? (c/n): ");
-                a = scanner.nextLine();
-                if (a.equalsIgnoreCase("c")) {
-                    i = 0;
-                    n= customers.size() - 1;
-                    customers.addAll(winners);
-//                    System.out.println(customers.size());
-                    winners.clear();
+            if (i<5) switch (a) {
+                case "s" -> {
+                    addWinner(c, winners, customers);
+                    i++;
+                    n--;
                 }
-                a = "y";
+                case "r" -> {
+                    i = 0;
+                    n = customers.size() - 1;
+                    resetWinners(customers, winners);
+                }
+                case "e" -> run = false;
+                default -> System.out.println("Invalid choice");
             }
-
-        } while (a.equalsIgnoreCase("y"));
-        System.out.println("========== End Lucky Draw Customer ========");
+            else switch (a) {
+                case "s" -> System.out.println("Sorry, you have reached the maximum number of winners");
+                case "r" -> {
+                    i = 0;
+                    n = customers.size() - 1;
+                    resetWinners(customers, winners);
+                }
+                case "e" -> run = false;
+                default -> System.out.println("Invalid choice");
+            }
+        } while (run);
+        scanner.close();
         printSentence(winners);
         for (Customer winner : winners) {
             System.out.println(winner.toString());
         }
     }
+
+
 
 
 }
