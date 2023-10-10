@@ -1,27 +1,31 @@
 package luckydraw;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
+
+
 public class CustomerDao {
+    //use collection sort to sort no of customer
 
     protected static void listOfCustomers(ArrayList<CustomerDto> customerDtos) {
-        customerDtos.add(new CustomerDto(1, "John Doe", "1234567890"));
-        customerDtos.add(new CustomerDto(2, "Jane Doe", "0987654321"));
-        customerDtos.add(new CustomerDto(3, "Peter Parker", "9876543210"));
-        customerDtos.add(new CustomerDto(4, "Mary Jane Watson", "1098765432"));
-        customerDtos.add(new CustomerDto(5, "Bruce Wayne", "2109876543"));
-        customerDtos.add(new CustomerDto(6, "Clark Kent", "3210987654"));
-        customerDtos.add(new CustomerDto(7, "Diana Prince", "4321098765"));
-        customerDtos.add(new CustomerDto(8, "Arthur Curry", "5432109876"));
-        customerDtos.add(new CustomerDto(9, "Barry Allen", "6543210987"));
-        customerDtos.add(new CustomerDto(10, "Victor Stone", "7654321098"));
+        customerDtos.add(new CustomerDto(1, "Heng Layhak", "012 278 896"));
+        customerDtos.add(new CustomerDto(2, "It Vuthy", "010 250 250"));
+        customerDtos.add(new CustomerDto(3, "Nuey Mich", "061 595 047"));
+        customerDtos.add(new CustomerDto(4, "Teng Panha", "012 454 616"));
+        customerDtos.add(new CustomerDto(5, "Seng Phearun", "010 891 195"));
+        customerDtos.add(new CustomerDto(6, "Yet Sokros", "011 278 811"));
+        customerDtos.add(new CustomerDto(7, "Nhor Vengchhay", "098 881 995"));
+        customerDtos.add(new CustomerDto(8, "Hout Sovannarith", "012 168 681"));
+        customerDtos.add(new CustomerDto(9, "Thoem Veasna", "012 888 999"));
     }
 
     protected static void addWinner(CustomerDto c, ArrayList<CustomerDto> winners, ArrayList<CustomerDto> customerDtos) throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);
-        System.out.print("The winner phone number is:");
-        System.out.println(c.getTel());
+        System.out.print("The winner is:");
+        System.out.println(c.toString());
         winners.add(c);
         customerDtos.remove(c);
     }
@@ -38,11 +42,6 @@ public class CustomerDao {
                 System.out.println("------------------------------------");
             }
         }
-//         else {
-//            System.out.println("------------------------------------");
-//            System.out.println("No winners");
-//            System.out.println("------------------------------------");
-//        }
     }
 
     protected static void listOfChoices(int i) {
@@ -107,7 +106,7 @@ public class CustomerDao {
                     ------------------------------------
                             No winners to show
                     ------------------------------------
-                                        """);
+                    """);
             return;
         }
         for (CustomerDto winner : winners) {
